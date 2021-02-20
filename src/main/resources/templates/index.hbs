@@ -1,0 +1,13 @@
+{{#partial "content"}}
+    <div class="wrap">
+        <div class="title">Course Search</div>
+        <form class="search" action="/search" method="post">
+            <input type="text" class="searchTerm" placeholder="" name="query">
+            <button type="submit" class="searchButton">
+                <i class="fa fa-search"></i>
+            </button>
+        </form>
+    </div>
+{{/partial}}
+
+{{> base.hbs}}

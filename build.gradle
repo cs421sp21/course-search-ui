@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id "com.heroku.sdk.heroku-gradle" version "2.0.0"
+}
+
+version '0.0.1'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    implementation 'com.sparkjava:spark-core:2.9.3'
+    implementation 'org.slf4j:slf4j-api:1.7.30'
+    implementation 'org.slf4j:slf4j-simple:1.7.30'
+    implementation 'com.sparkjava:spark-template-mustache:2.7.1'
+    implementation 'com.sparkjava:spark-template-handlebars:2.7.1'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.konghq:unirest-java:3.11.09'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class' : 'WebServer'
+    }
+    from {
+        configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+heroku {
+    jdkVersion = 11
+    processTypes(web: "java -jar build/libs/course-search-ui-0.0.1.jar")
+}
